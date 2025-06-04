@@ -170,7 +170,7 @@ const GenealogyTree: React.FC = () => {
 									}}
 									title='Добавить потомка'
 								>
-									+
+									+ff
 								</button>
 							</div>
 						))}

@@ -94,6 +94,6 @@ const GenealogyTree = () => {
                 .map(level => (_jsx("div", { className: styles.level, children: groupedNodes[parseInt(level)].map(node => (_jsxs("div", { className: `${styles.node} ${!node.visible ? styles.nodeHidden : ''}`, "data-node-id": node.id, onClick: () => toggleVisibility(node.id), children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsxs("div", { className: styles.content, children: ["\u0427\u0435\u043B\u043E\u0432\u0435\u043A ", node.id + 1] }), _jsx("div", { className: styles.descendantsCount, children: countDescendants(node.id, nodes) }), _jsx("button", { className: styles.addChildButton, onClick: e => {
                                 e.stopPropagation();
                                 addNode(node.id);
-                            }, title: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043F\u043E\u0442\u043E\u043C\u043A\u0430', children: "+" })] }, node.id))) }, level)))] }));
+                            }, title: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043F\u043E\u0442\u043E\u043C\u043A\u0430', children: "+ff" })] }, node.id))) }, level)))] }));
 };
 export default GenealogyTree;
