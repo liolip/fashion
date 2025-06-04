@@ -1,0 +1,19 @@
+.bg-image-1,
+.bg-image-2 {
+	position: fixed;
+	z-index: -1;
+	opacity: 0.2;
+	pointer-events: none;
+}
+
+.bg-image-1 {
+	top: 50px;
+	left: 50px;
+	width: 150px;
+}
+
+.bg-image-2 {
+	bottom: 40px;
+	right: 80px;
+	width: 200px;
+}
