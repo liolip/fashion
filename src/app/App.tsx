@@ -11,12 +11,10 @@ function App() {
 		>
 			<HeaderWidget />
 			<ParticlesBackground />
-			<div style={{ flex: 1, padding: '20px' }}>
-				<Routes>
-					<Route path='/' element={<GenealogyTree />} />
-					<Route path='/tree' element={<GenealogyTree />} />
-				</Routes>
-			</div>
+			<Routes>
+				<Route path='/' element={<GenealogyTree />} />
+				<Route path='/tree' element={<GenealogyTree />} />
+			</Routes>
 		</div>
 	)
 }

@@ -75,7 +75,19 @@ const HeaderWidget: React.FC = () => {
 						</NavLink>
 					</nav>
 
-					<div className={styles.searchWrapper}>
+					{/* Поиск + фильтры в одном контейнере с управлением фокуса */}
+					<div
+						className={styles.searchWrapper}
+						onFocus={() => setShowFilters(true)}
+						onBlur={e => {
+							// Если новый фокус внутри контейнера, не скрывать фильтры
+							if (e.currentTarget.contains(e.relatedTarget as Node)) {
+								return
+							}
+							setShowFilters(false)
+						}}
+						tabIndex={-1} // чтобы div мог принимать фокус
+					>
 						<label className={styles.searchLabel} htmlFor='search-input'>
 							<svg
 								width='20'
@@ -98,10 +110,6 @@ const HeaderWidget: React.FC = () => {
 								placeholder={currentTexts.searchPlaceholder}
 								value={searchValue}
 								onChange={e => setSearchValue(e.target.value)}
-								onFocus={() => setShowFilters(true)}
-								onBlur={() => {
-									setTimeout(() => setShowFilters(false), 150)
-								}}
 								className={styles.searchInput}
 								autoComplete='off'
 							/>
