@@ -1,0 +1,18 @@
+.book-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  background-color: #333;
+  border-radius: 50%;
+  padding: 12px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+.book-icon svg {
+  display: block;
+}
+.book-icon:hover {
+  transform: scale(1.1);
+}/*# sourceMappingURL=style.module.css.map */

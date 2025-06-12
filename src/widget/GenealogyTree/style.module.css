@@ -20,6 +20,10 @@
      -moz-user-select: none;
           user-select: none;
   touch-action: none;
+  cursor: grab;
+}
+.treeContainer:active {
+  cursor: grabbing;
 }
 
 .level {
@@ -157,14 +161,20 @@
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 .addChildButton:hover {
+  transition: 0.3s ease;
   background-color: rgba(255, 255, 255, 0.4);
   color: #fff;
 }
 .addChildButton.visible {
+  transition: 0.3s ease;
   opacity: 1;
   visibility: visible;
   transform: translateY(-50%) scale(1);
   pointer-events: auto;
+}
+.addChildButton.visible .visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .linesSvg {

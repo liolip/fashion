@@ -46,7 +46,6 @@ const HeaderWidget = () => {
                                         e.preventDefault();
                                         toggleSidebar();
                                     }, children: currentTexts.logoText }), _jsx(NavLink, { to: '/about', className: ({ isActive }) => (isActive ? styles.active : ''), children: currentTexts.project })] }), _jsxs("div", { className: styles.searchWrapper, onFocus: () => setShowFilters(true), onBlur: e => {
-                                // Если новый фокус внутри контейнера, не скрывать фильтры
                                 if (e.currentTarget.contains(e.relatedTarget)) {
                                     return;
                                 }

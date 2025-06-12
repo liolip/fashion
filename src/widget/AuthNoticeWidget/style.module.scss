@@ -1,0 +1,103 @@
+.sidebar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 400px;
+	height: 100vh;
+	background-color: #ffffff;
+	box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+	z-index: 100;
+	overflow: hidden;
+	transform: translateX(100%);
+	opacity: 0;
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+	&.open {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.sidebarContent {
+	// 	    width: 100%;
+	//     min-height: 100%;
+	//     padding: 1.5rem 0;
+	//     display: flex
+	// ;
+	//     flex-direction: column;
+	//     height: 100%;
+	padding: 20px;
+	color: #000000;
+	height: 100%;
+	overflow-y: auto;
+	z-index: 10020;
+	position: relative;
+}
+
+.closeButton {
+	background: none;
+	border: 2px solid #003dcc;
+	border-radius: 50%;
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding: 5px;
+	width: 34px;
+	height: 34px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.2s ease;
+
+	&:hover {
+		background-color: rgba(0, 196, 204, 0.1);
+	}
+}
+
+.sidebarTitle {
+	font-size: 24px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 600;
+	margin-bottom: 20px;
+	text-align: center;
+	color: #000000;
+}
+.sidebarInfo {
+	font-size: 14px;
+	font-family: 'Raleway', sans-serif;
+	line-height: 1.4;
+	color: #555;
+	max-height: calc(100vh - 200px);
+	overflow-y: auto;
+
+	p {
+		margin-bottom: 16px;
+	}
+}
+
+.loginButton {
+	width: 100%;
+	background-color: #ffc800;
+	color: #333;
+	border: none;
+	border-radius: 10px;
+	padding: 14px 0;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.2s;
+
+	&:hover {
+		background-color: #7b713e;
+	}
+}
+.highlightBox {
+	background-color: #f4f4f4;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 14px 16px 18px;
+	color: #555;
+	font-size: 14px;
+	line-height: 1.4;
+}

@@ -19,6 +19,11 @@
 	overflow: visible;
 	user-select: none;
 	touch-action: none;
+	// cursor: pointer;
+	cursor: grab;
+	&:active {
+		cursor: grabbing;
+	}
 }
 
 .level {
@@ -98,6 +103,8 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	user-select: none;
+	word-wrap: break-word;
+	white-space: normal;
 }
 
 .childrenCount {
@@ -152,11 +159,13 @@
 	transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 
 	&:hover {
+		transition: 0.3s ease;
 		background-color: rgba(255, 255, 255, 0.4);
 		color: #fff;
 	}
 
 	&.visible {
+		transition: 0.3s ease;
 		opacity: 1;
 		visibility: visible;
 		transform: translateY(-50%) scale(1);

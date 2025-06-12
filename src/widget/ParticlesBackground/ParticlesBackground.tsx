@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-// Если не работает импорт, попробуй так:
-// import 'particles.js' // и обращаться к window.particlesJS
 
 declare global {
 	interface Window {

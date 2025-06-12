@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import ParticlesBackground from '../widget/ParticlesBackground/ParticlesBackground'
 import HeaderWidget from '../widget/headerWidget/HeaderWidget'
 import GenealogyTree from '../widget/GenealogyTree/GenealogyTree'
+import BookIcon from '../widget/BookIcon/BookIcon'
 
 function App() {
 	return (

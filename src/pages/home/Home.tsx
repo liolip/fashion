@@ -6,6 +6,10 @@ import HeaderWidget from '../../widget/headerWidget/HeaderWidget'
 import LoginWidgetModal from '../../widget/loginWidgetModal/LoginWidgetModal'
 import BannersBuyWidget from '../../widget/bannersWidget/BannersWidget'
 import GenealogyTree from '../../widget/GenealogyTree/GenealogyTree'
+import BookIcon from '../../widget/BookIcon/BookIcon'
+import AuthNoticeWidget from '../../widget/AuthNoticeWidget/AuthNoticeWidget'
+import CartWidget from '../../widget/cartWidget/CartWidget'
+import HumanWidget from '../../widget/HumanWidget/HumanWidget'
 // import AboutModal from '../about/About'
 
 interface Product {
@@ -30,9 +34,22 @@ const HomePage: React.FC<HomePageProps> = ({ productsData }) => {
 
 	return (
 		<>
+			<BookIcon
+				onClick={() => {
+					console.log('BookIcon clicked')
+				}}
+			/>
+
 			<CategoryWidget />
 			<GenealogyTree />
 			<HeaderWidget />
+			<AuthNoticeWidget
+				isOpen={false}
+				onClose={() => {}}
+				onLoginClick={() => setIsLoginModalOpen(true)}
+				personName='Неизвестный человек'
+			/>
+
 			<LoginWidgetModal
 				isOpen={isLoginModalOpen}
 				onClose={handleCloseLoginModal}
