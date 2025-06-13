@@ -11,7 +11,7 @@ interface PersonType {
 interface CartWidgetProps {
 	isOpen: boolean
 	onClose: () => void
-	person: PersonType | null
+	person?: PersonType | null
 }
 
 const CartWidget: React.FC<CartWidgetProps> = ({ isOpen, onClose, person }) => {
