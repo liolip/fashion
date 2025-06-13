@@ -5,6 +5,7 @@ type ButtonWidgetProps = {
 	onInfoClick: () => void
 	onDeleteClick: () => void
 	className?: string
+	hidden?: boolean
 }
 
 const ButtonWidget: React.FC<ButtonWidgetProps> = ({

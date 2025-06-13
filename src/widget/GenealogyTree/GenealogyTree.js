@@ -19,6 +19,7 @@ const GenealogyTree = () => {
             level: 0,
             visible: true,
             name: 'Долон бий',
+            description: 'У кыргызов роды делятся на два крыла: правое и левое. Вот мы, оказывается, происходим от Долон-бия. До Долон-бия было 11 отцов. Самый последний из них – Кыргызбаем звался. Когда переходили перевал Долон, родился у Кыргызбая Долон-бий. Его жена родила в свое время близнецов, одного она назвала Оң (правый – ред.), сказав, что родила его с помощью правой почки, а другого – Сол (левый – ред.), сказав, что родила мальчика с помощью левой почки. От Оң произошли Адигине, Тагай и Наали – девочка и два мальчика. От Адигине – Солто, Сарыбагыш, Саяк, Бугу. В Таласе от старшего сына Долон-бия Каратала произошли Кушчу и Саруу. От Кушчу – Каратал и Каранай. Нашим призывом до сих пор является “Каратал” и “Каранай”. От Каратала – Жакып. От Жакыпа – Жантай, Эльтай и Кудайменде. От Жантая Каймазар, от которого мы вот произошли. От Эльтая – народ Кыргый произошел, который у истока Каракола расположился. От Кудайменде – племя Сабатар. Вот мы от этих троих сыновей и произошли, остальные дальше идут ветками. У Караная было два сына- Жансейит и Байсейит. От Жансейита пошли Каракушчу, Саркушчу, Кёккушчу, Тазкушчу. От второго – мелкие народы Сакалды, Чейне, Чилжуут и Бочу.',
         },
     ]);
     const [nextId, setNextId] = useState(1);
@@ -189,25 +190,15 @@ const GenealogyTree = () => {
                                         .sort((a, b) => parseInt(a) - parseInt(b))
                                         .map(level => (_jsx("div", { className: styles.level, children: groupedNodes[parseInt(level)].map(node => (_jsxs("div", { className: styles.nodeWrapper, children: [_jsxs("div", { className: `${styles.node} ${!node.visible ? styles.nodeHidden : ''} ${activeNode === node.id && node.visible
                                                         ? styles.active
-                                                        : ''}`, "data-node-id": node.id, onClick: () => toggleVisibility(node.id), children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id, nodes) })] }), activeNode === node.id && node.visible && (_jsx("div", { className: styles.fixedButtonWidget, style: {
-                                                        position: 'fixed',
-                                                        top: '20px',
-                                                        right: '20px',
-                                                    }, children: _jsx(ButtonWidget, { onInfoClick: () => showCartForNode(node), onDeleteClick: () => deleteNode(node.id), className: styles.buttonWidget }) })), _jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
+                                                        : ''}`, "data-node-id": node.id, onClick: () => toggleVisibility(node.id), children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id, nodes) })] }), activeNode === node.id && node.visible && (_jsx("div", { className: styles.buttonWidgetContainer, children: _jsx(ButtonWidget, { onInfoClick: () => showCartForNode(node), onDeleteClick: () => deleteNode(node.id) }) })), _jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
                                                         e.stopPropagation();
                                                         if (currentUser) {
-                                                            const target = nodes.find(n => n.id === node.id);
-                                                            if (target) {
-                                                                setSidebarParentNode(target);
-                                                                setIsSidebarOpen(true);
-                                                            }
+                                                            setSidebarParentNode(node);
+                                                            setIsSidebarOpen(true);
                                                         }
                                                         else {
-                                                            const target = nodes.find(n => n.id === node.id);
-                                                            if (target) {
-                                                                setAuthNoticeTargetNode(target);
-                                                                setAuthNoticeOpen(true);
-                                                            }
+                                                            setAuthNoticeTargetNode(node);
+                                                            setAuthNoticeOpen(true);
                                                         }
                                                     }, title: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043F\u043E\u0442\u043E\u043C\u043A\u0430', children: "+" })] }, node.id))) }, level)))] }) })] })) }), isLoginModalOpen && (_jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
                     setIsLoginModalOpen(false);

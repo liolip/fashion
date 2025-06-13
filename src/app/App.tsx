@@ -4,6 +4,7 @@ import ParticlesBackground from '../widget/ParticlesBackground/ParticlesBackgrou
 import HeaderWidget from '../widget/headerWidget/HeaderWidget'
 import GenealogyTree from '../widget/GenealogyTree/GenealogyTree'
 import BookIcon from '../widget/BookIcon/BookIcon'
+import About from '../pages/about/About'
 import ButtonWidget from '../widget/buttonWidget/ButtonWidget'
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
 
 			{/* Маршруты */}
 			<Routes>
+				<Route path='/about' element={<About />} />
+
 				<Route path='/' element={<GenealogyTree />} />
 				<Route path='/tree' element={<GenealogyTree />} />
 			</Routes>
