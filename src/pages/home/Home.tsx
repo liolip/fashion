@@ -39,7 +39,10 @@ const HomePage: React.FC<HomePageProps> = ({ productsData }) => {
 					console.log('BookIcon clicked')
 				}}
 			/>
-
+			<ButtonWidget
+				onInfoClick={() => console.log('Инфо нажато')}
+				onDeleteClick={() => console.log('Удалить нажато')}
+			/>
 			<CategoryWidget />
 			<GenealogyTree />
 			<HeaderWidget />
@@ -56,7 +59,6 @@ const HomePage: React.FC<HomePageProps> = ({ productsData }) => {
 			/>
 			<BannersBuyWidget />
 			<FooterWidget />
-			<ButtonWidget />
 		</>
 	)
 }

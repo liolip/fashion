@@ -153,11 +153,11 @@ const HeaderWidget: React.FC = () => {
 				</div>
 			</header>
 
-			<CartWidget isOpen={isSidebarOpen} onClose={toggleSidebar} />
+			{/* <CartWidget isOpen={isSidebarOpen} onClose={toggleSidebar} />
 			<LoginWidgetModal
 				isOpen={isLoginOpen}
 				onClose={() => setIsLoginOpen(false)}
-			/>
+			/> */}
 		</>
 	)
 }

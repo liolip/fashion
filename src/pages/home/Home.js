@@ -16,6 +16,6 @@ const HomePage = ({ productsData }) => {
     };
     return (_jsxs(_Fragment, { children: [_jsx(BookIcon, { onClick: () => {
                     console.log('BookIcon clicked');
-                } }), _jsx(CategoryWidget, {}), _jsx(GenealogyTree, {}), _jsx(HeaderWidget, {}), _jsx(AuthNoticeWidget, { isOpen: false, onClose: () => { }, onLoginClick: () => setIsLoginModalOpen(true), personName: '\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439 \u0447\u0435\u043B\u043E\u0432\u0435\u043A' }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: handleCloseLoginModal }), _jsx(BannersBuyWidget, {}), _jsx(FooterWidget, {}), _jsx(ButtonWidget, {})] }));
+                } }), _jsx(ButtonWidget, { onInfoClick: () => console.log('Инфо нажато'), onDeleteClick: () => console.log('Удалить нажато') }), _jsx(CategoryWidget, {}), _jsx(GenealogyTree, {}), _jsx(HeaderWidget, {}), _jsx(AuthNoticeWidget, { isOpen: false, onClose: () => { }, onLoginClick: () => setIsLoginModalOpen(true), personName: '\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u044B\u0439 \u0447\u0435\u043B\u043E\u0432\u0435\u043A' }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: handleCloseLoginModal }), _jsx(BannersBuyWidget, {}), _jsx(FooterWidget, {})] }));
 };
 export default HomePage;

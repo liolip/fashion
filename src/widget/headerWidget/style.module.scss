@@ -26,9 +26,9 @@
 }
 
 .logoText {
+	font-family: Raleway, sans-serif;
 	color: #ffffff;
 	font-size: 14px;
-	font-family: 'Segoe UI', sans-serif;
 	margin-left: 10px;
 	white-space: nowrap;
 }
@@ -42,7 +42,7 @@
 		color: #ffffff;
 		margin-left: -30px;
 		font-size: 14px;
-		font-family: 'Segoe UI', sans-serif;
+		font-family: Raleway, sans-serif;
 		white-space: nowrap;
 		text-decoration: none;
 		padding: 8px 30px;
@@ -59,6 +59,7 @@
 	position: relative;
 	width: 60%;
 	max-width: 600px;
+	font-family: Raleway, sans-serif;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -92,7 +93,7 @@
 
 .filters {
 	position: absolute;
-	top: 100%; /* сразу под основным инпутом */
+	top: 100%;
 	left: 0;
 	right: 0;
 	background-color: #1d2024;
