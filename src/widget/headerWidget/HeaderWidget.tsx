@@ -58,15 +58,12 @@ const HeaderWidget: React.FC = () => {
 
 					<nav className={styles.nav}>
 						<NavLink
-							to='/sanzhyra'
+							to='/'
 							className={({ isActive }) => (isActive ? styles.active : '')}
-							onClick={e => {
-								e.preventDefault()
-								toggleSidebar()
-							}}
 						>
 							{currentTexts.logoText}
 						</NavLink>
+
 						<NavLink
 							to='/about'
 							className={({ isActive }) => (isActive ? styles.active : '')}
@@ -113,7 +110,7 @@ const HeaderWidget: React.FC = () => {
 							/>
 						</label>
 
-						{showFilters && (
+						{/* {showFilters && (
 							<div className={styles.filters}>
 								<input
 									type='text'
@@ -130,7 +127,7 @@ const HeaderWidget: React.FC = () => {
 									className={styles.filterInput}
 								/>
 							</div>
-						)}
+						)} */}
 					</div>
 
 					<div className={styles.buttons}>

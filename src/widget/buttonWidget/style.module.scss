@@ -53,8 +53,9 @@
 // }
 
 .fixedButtonWidget {
-	position: fixed;
+	// position: fixed;
 	top: 100px;
+	position: relative;
 	right: 50px;
 	z-index: 1000;
 }

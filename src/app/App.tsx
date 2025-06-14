@@ -5,7 +5,7 @@ import HeaderWidget from '../widget/headerWidget/HeaderWidget'
 import GenealogyTree from '../widget/GenealogyTree/GenealogyTree'
 import BookIcon from '../widget/BookIcon/BookIcon'
 import About from '../pages/about/About'
-import ButtonWidget from '../widget/buttonWidget/ButtonWidget'
+// import ButtonWidget from '../widget/buttonWidget/ButtonWidget'
 
 function App() {
 	return (
@@ -15,7 +15,6 @@ function App() {
 			<HeaderWidget />
 			<ParticlesBackground />
 
-			{/* Маршруты */}
 			<Routes>
 				<Route path='/about' element={<About />} />
 
@@ -23,7 +22,6 @@ function App() {
 				<Route path='/tree' element={<GenealogyTree />} />
 			</Routes>
 
-			{/* Кнопки отображаются всегда */}
 			<div
 				style={{
 					position: 'fixed',
@@ -32,10 +30,10 @@ function App() {
 					zIndex: 1000,
 				}}
 			>
-				<ButtonWidget
+				{/* <ButtonWidget
 					onInfoClick={() => console.log('Инфо нажато')}
 					onDeleteClick={() => console.log('Удалить нажато')}
-				/>
+				/> */}
 			</div>
 		</div>
 	)

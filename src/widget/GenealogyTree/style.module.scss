@@ -8,6 +8,15 @@
 		transform: translateY(0);
 	}
 }
+.buttonWidgetContainer {
+	position: absolute;
+	pointer-events: none;
+	z-index: 999;
+
+	> * {
+		pointer-events: auto;
+	}
+}
 
 .treeContainer {
 	position: relative;
