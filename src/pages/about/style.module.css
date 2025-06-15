@@ -1,53 +1,24 @@
-.fullScreenOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #fff;
-  z-index: 9999;
-  overflow-y: auto;
-  padding: 3rem 2rem;
+.aboutPage {
+  background-color: #ffffff;
+  color: #000000;
+  min-height: 100vh;
+  padding: 40px 20px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
-.fullScreenModal {
+.content {
   max-width: 800px;
   width: 100%;
-  background: #fff;
-  font-family: "Arial", sans-serif;
-  color: #222;
+}
+.content h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.content p {
+  font-size: 18px;
   line-height: 1.6;
-  position: relative;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
-}
-
-.closeBtn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: #999;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.closeBtn:hover {
-  color: #000;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
+  margin-bottom: 16px;
 }/*# sourceMappingURL=style.module.css.map */

@@ -49,13 +49,16 @@ const HumanWidgetSidebar: React.FC<Props> = ({ isOpen, onClose, onSubmit }) => {
 						required
 					/>
 
-					<label className={styles.label}>Описание</label>
-					<textarea
-						className={styles.textarea}
-						value={description}
-						onChange={e => setDescription(e.target.value)}
-						placeholder='Добавьте описание (необязательно)'
-					/>
+					<div className={styles.textareaWrapper}>
+						<label className={styles.label}>Описание</label>
+						<textarea
+							className={styles.textarea}
+							value={description}
+							onChange={e => setDescription(e.target.value)}
+							placeholder='Добавьте описание (необязательно)'
+							rows={8}
+						/>
+					</div>
 
 					<button type='submit' className={styles.submitButton}>
 						Добавить

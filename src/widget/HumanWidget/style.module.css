@@ -2,28 +2,29 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 400px;
+  width: 500px;
   height: 100vh;
   background-color: #ffffff;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
   z-index: 100;
   overflow: hidden;
+  font-family: Raleway, sans-serif;
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
-.sidebar.open {
+
+.open {
   transform: translateX(0);
   opacity: 1;
 }
 
 .sidebarContent {
   padding: 20px;
-  color: #000000;
+  font-family: Raleway, sans-serif;
   height: 100%;
   overflow-y: auto;
-  z-index: 10020;
-  position: relative;
+  color: #000;
 }
 
 .closeButton {
@@ -34,12 +35,14 @@
   position: absolute;
   top: 10px;
   right: 10px;
+  font-family: Raleway, sans-serif;
   padding: 5px;
   width: 34px;
   height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.5rem;
   transition: background-color 0.2s ease;
 }
 .closeButton:hover {
@@ -48,26 +51,52 @@
 
 .sidebarTitle {
   font-size: 24px;
-  font-family: "Raleway", sans-serif;
+  font-family: Raleway, sans-serif;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
   text-align: center;
-  color: #000000;
 }
 
-.sidebarInfo {
+.sidebarInfoBox {
+  font-family: Raleway, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+.sidebarInfoBox p {
   font-size: 14px;
-  font-family: "Raleway", sans-serif;
-  line-height: 1.4;
-  color: #555;
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-.sidebarInfo p {
-  margin-bottom: 16px;
+  color: #333;
+  font-family: Raleway, sans-serif;
 }
 
-.loginButton {
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: Raleway, sans-serif;
+  padding: 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  resize: none;
+}
+
+.textareaWrapper {
+  width: 100%;
+  max-width: 550px;
+}
+
+.submitButton {
   width: 100%;
   background-color: #ffc800;
   color: #333;
@@ -79,16 +108,19 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
-.loginButton:hover {
-  background-color: #7b713e;
+.submitButton:hover {
+  background-color: #ffb700;
 }
 
-.highlightBox {
-  background-color: #f4f4f4;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 14px 16px 18px;
-  color: #555;
-  font-size: 14px;
-  line-height: 1.4;
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }/*# sourceMappingURL=style.module.css.map */

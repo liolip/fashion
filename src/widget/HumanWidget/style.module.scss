@@ -2,7 +2,7 @@
 	position: fixed;
 	top: 0;
 	right: 0;
-	width: 400px;
+	width: 500px;
 	height: 100vh;
 	background-color: #ffffff;
 	box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
@@ -54,7 +54,7 @@
 	font-size: 24px;
 	font-family: Raleway, sans-serif;
 	font-weight: 600;
-	margin-bottom: 15px;
+	margin-bottom: 35px;
 	text-align: center;
 }
 
@@ -91,6 +91,10 @@
 	box-sizing: border-box;
 	margin-bottom: 20px;
 	resize: none;
+}
+.textareaWrapper {
+	width: 100%;
+	max-width: 550px; // или 600px — шире, чем input
 }
 
 .submitButton {
