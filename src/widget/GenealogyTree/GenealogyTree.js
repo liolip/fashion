@@ -1206,6 +1206,7 @@ import HumanWidget from '../HumanWidget/HumanWidget';
 import ButtonWidget from '../buttonWidget/ButtonWidget';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { useTreeStore } from '../../store/useTreeStore';
+import { listenToAuth } from '../../dataBase/firebaseUser';
 const GenealogyTree = () => {
     const { currentUser } = useAuth();
     const [nodes, setNodes] = useState([]);
@@ -1218,6 +1219,19 @@ const GenealogyTree = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [authNoticeOpen, setAuthNoticeOpen] = useState(false);
     const [authNoticeTargetNode, setAuthNoticeTargetNode] = useState(null);
+    const scrollToNodeById = (id) => {
+        const el = document.getElementById(`node-${id}`);
+        if (el) {
+            el.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center',
+            });
+            // Плавная подсветка
+            el.classList.add(styles.highlight);
+            setTimeout(() => el.classList.remove(styles.highlight), 1500);
+        }
+    };
     const [cartPerson, setCartPerson] = useState(null);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [sidebarParentNode, setSidebarParentNode] = useState(null);
@@ -1225,6 +1239,11 @@ const GenealogyTree = () => {
     const [lines, setLines] = useState([]);
     const containerRef = useRef(null);
     const { activeNodeId, buttonWidgetVisible, buttonWidgetPosition, setActiveNode: setStoreActiveNode, setButtonWidgetPosition, setButtonWidgetVisible, } = useTreeStore();
+    const [email, setEmail] = useState(null);
+    // Функция для нахождения эмейла
+    useEffect(() => {
+        listenToAuth(email => setEmail(email));
+    }, []);
     useEffect(() => {
         const fetchPersons = async () => {
             try {
@@ -1239,8 +1258,14 @@ const GenealogyTree = () => {
                     visible: true,
                     name: person.name,
                     description: person.description,
+                    createdBy: person.createdBy, // ✅ добавлено
                 }));
-                setNodes(persons);
+                if (email === 'weelppak@gmail.com') {
+                    setNodes(persons);
+                }
+                else {
+                    setNodes([]); // или null — но [] лучше для карты
+                }
                 setIsLoading(false);
             }
             catch (err) {
@@ -1249,7 +1274,7 @@ const GenealogyTree = () => {
             }
         };
         fetchPersons();
-    }, []);
+    }, [email]); // ✅ важно: зависимость от email, чтобы срабатывало при его получении
     const toggleVisibility = (nodeId) => {
         setActiveNode(prev => (prev === nodeId ? null : nodeId));
         setShowAddButtonFor(prev => (prev === nodeId ? null : nodeId));
@@ -1338,7 +1363,7 @@ const GenealogyTree = () => {
         }
     };
     const countDescendants = (id) => nodes.filter(n => n.parentId === id && n.visible).length;
-    return (_jsxs(_Fragment, { children: [_jsx(TransformWrapper, { initialScale: 1, minScale: 0.5, maxScale: 2, wheel: { step: 0.1 }, doubleClick: { disabled: true }, panning: { disabled: false }, limitToBounds: false, onZoom: ({ state }) => setScale(state.scale), children: _jsx(TransformComponent, { children: _jsxs("div", { className: styles.treeContainer, ref: containerRef, onClick: onBackgroundClick, children: [_jsx("svg", { className: styles.linesSvg, children: lines.map((line, idx) => (_jsx(motion.path, { d: `M ${line.x1} ${line.y1} C ${(line.x1 + line.x2) / 2} ${line.y1}, ${(line.x1 + line.x2) / 2} ${line.y2}, ${line.x2} ${line.y2}`, fill: 'transparent', stroke: '#333', strokeWidth: '7', strokeLinecap: 'round', initial: { pathLength: 0 }, animate: { pathLength: 1 }, transition: { duration: 0.4 } }, idx))) }), nodes.length === 0 ? (_jsx("div", { className: styles.emptyTree, children: _jsx("button", { className: styles.addRootButton, onClick: () => {
+    return (_jsxs(_Fragment, { children: [_jsx(TransformWrapper, { initialScale: 1, minScale: 0.5, maxScale: 2, wheel: { step: 0.1 }, doubleClick: { disabled: true }, panning: { disabled: false }, limitToBounds: false, onZoom: ({ state }) => setScale(state.scale), children: _jsx(TransformComponent, { wrapperStyle: { width: '100%' }, children: _jsxs("div", { className: styles.treeContainer, ref: containerRef, onClick: onBackgroundClick, children: [_jsx("svg", { className: styles.linesSvg, children: lines.map((line, idx) => (_jsx(motion.path, { d: `M ${line.x1} ${line.y1} C ${(line.x1 + line.x2) / 2} ${line.y1}, ${(line.x1 + line.x2) / 2} ${line.y2}, ${line.x2} ${line.y2}`, fill: 'transparent', stroke: '#333', strokeWidth: '7', strokeLinecap: 'round', initial: { pathLength: 0 }, animate: { pathLength: 1 }, transition: { duration: 0.4 } }, idx))) }), email === 'weelppak@gmail.com' && nodes.length === 0 ? (_jsx("div", { className: styles.emptyTree, children: _jsx("button", { className: styles.addRootButton, onClick: () => {
                                         if (currentUser) {
                                             setSidebarParentNode(null);
                                             setIsSidebarOpen(true);
@@ -1346,10 +1371,10 @@ const GenealogyTree = () => {
                                         else {
                                             setAuthNoticeOpen(true);
                                         }
-                                    }, children: "+" }) })) : (Object.entries(groupedNodes()).map(([level, levelNodes]) => (_jsx("div", { className: styles.level, children: levelNodes.map(node => (_jsxs("div", { className: styles.nodeWrapper, children: [_jsxs("div", { className: `${styles.node} ${activeNode === node.id ? styles.active : ''}`, "data-node-id": node.id, onClick: e => {
+                                    }, children: "+" }) })) : (Object.entries(groupedNodes()).map(([level, levelNodes]) => (_jsx("div", { className: styles.level, children: levelNodes.map(node => (_jsxs("div", { className: styles.nodeWrapper, children: [_jsxs("div", { id: `node-${node.id}`, className: `${styles.node} ${activeNode === node.id ? styles.active : ''}`, "data-node-id": node.id, onClick: e => {
                                                 e.stopPropagation();
                                                 toggleVisibility(node.id);
-                                            }, children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id) })] }), _jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
+                                            }, children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id) })] }), email === 'weelppak@gmail.com' && (_jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
                                                 e.stopPropagation();
                                                 if (currentUser) {
                                                     setSidebarParentNode(node);
@@ -1360,7 +1385,7 @@ const GenealogyTree = () => {
                                                     setAuthNoticeTargetNode(node);
                                                     setAuthNoticeOpen(true);
                                                 }
-                                            }, children: "+" })] }, node.id))) }, level))))] }) }) }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
+                                            }, children: "+" }))] }, node.id))) }, level))))] }) }) }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
                     setIsLoginModalOpen(false);
                     setLoginTargetNode(null);
                 }, onLoginSuccess: handleLoginSuccess }), _jsx(AuthNoticeWidget, { isOpen: authNoticeOpen, onClose: () => setAuthNoticeOpen(false), onLoginClick: () => {
@@ -1381,9 +1406,14 @@ const GenealogyTree = () => {
                                 description,
                                 parentId: sidebarParentNode?.id || null,
                                 level: (sidebarParentNode?.level || 0) + 1,
+                                createdBy: currentUser?.uid, // ✅ добавлено
                             }),
                         });
                         const data = await res.json();
+                        // // Центрирование нового узла
+                        // setTimeout(() => {
+                        // 	scrollToPersonById(data._id)
+                        // }, 300)
                         const newNode = {
                             id: data._id,
                             parentId: data.parentId,
@@ -1391,6 +1421,7 @@ const GenealogyTree = () => {
                             visible: true,
                             name: data.name,
                             description: data.description,
+                            createdBy: currentUser?.uid, // ✅ добавлено
                         };
                         setNodes(prev => [...prev, newNode]);
                         setCartPerson({

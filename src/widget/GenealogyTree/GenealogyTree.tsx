@@ -1294,6 +1294,8 @@ import ButtonWidget from '../buttonWidget/ButtonWidget'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 import { useTreeStore } from '../../store/useTreeStore'
 
+import { listenToAuth } from '../../dataBase/firebaseUser'
+
 interface Node {
 	id: string
 	parentId: string | null
@@ -1301,7 +1303,7 @@ interface Node {
 	visible: boolean
 	name: string
 	description?: string
-	createdByUserId?: string // новое поле
+	createdBy?: string // ✅ добавлено
 }
 
 interface Person {
@@ -1326,6 +1328,21 @@ const GenealogyTree: React.FC = () => {
 	const [authNoticeTargetNode, setAuthNoticeTargetNode] = useState<Node | null>(
 		null
 	)
+	const scrollToNodeById = (id: string) => {
+		const el = document.getElementById(`node-${id}`)
+		if (el) {
+			el.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+				inline: 'center',
+			})
+
+			// Плавная подсветка
+			el.classList.add(styles.highlight)
+			setTimeout(() => el.classList.remove(styles.highlight), 1500)
+		}
+	}
+
 	const [cartPerson, setCartPerson] = useState<Person | null>(null)
 	const [isCartOpen, setIsCartOpen] = useState(false)
 	const [sidebarParentNode, setSidebarParentNode] = useState<Node | null>(null)
@@ -1344,12 +1361,20 @@ const GenealogyTree: React.FC = () => {
 		setButtonWidgetVisible,
 	} = useTreeStore()
 
+	const [email, setEmail] = useState<string | null>(null)
+
+	// Функция для нахождения эмейла
+	useEffect(() => {
+		listenToAuth(email => setEmail(email))
+	}, [])
+
 	useEffect(() => {
 		const fetchPersons = async () => {
 			try {
 				const response = await fetch('http://localhost:5000/api/person')
 				if (!response.ok) throw new Error('Ошибка при загрузке данных')
 				const data = await response.json()
+
 				const persons = data.map((person: any) => ({
 					id: person._id,
 					parentId: person.parentId,
@@ -1357,8 +1382,15 @@ const GenealogyTree: React.FC = () => {
 					visible: true,
 					name: person.name,
 					description: person.description,
+					createdBy: person.createdBy, // ✅ добавлено
 				}))
-				setNodes(persons)
+
+				if (email === 'weelppak@gmail.com') {
+					setNodes(persons)
+				} else {
+					setNodes([]) // или null — но [] лучше для карты
+				}
+
 				setIsLoading(false)
 			} catch (err) {
 				setError('Не удалось загрузить данные')
@@ -1366,7 +1398,7 @@ const GenealogyTree: React.FC = () => {
 			}
 		}
 		fetchPersons()
-	}, [])
+	}, [email]) // ✅ важно: зависимость от email, чтобы срабатывало при его получении
 
 	const toggleVisibility = (nodeId: string) => {
 		setActiveNode(prev => (prev === nodeId ? null : nodeId))
@@ -1479,7 +1511,7 @@ const GenealogyTree: React.FC = () => {
 				limitToBounds={false}
 				onZoom={({ state }) => setScale(state.scale)}
 			>
-				<TransformComponent>
+				<TransformComponent wrapperStyle={{ width: '100%' }}>
 					<div
 						className={styles.treeContainer}
 						ref={containerRef}
@@ -1505,7 +1537,7 @@ const GenealogyTree: React.FC = () => {
 							))}
 						</svg>
 
-						{nodes.length === 0 ? (
+						{email === 'weelppak@gmail.com' && nodes.length === 0 ? (
 							<div className={styles.emptyTree}>
 								<button
 									className={styles.addRootButton}
@@ -1527,6 +1559,7 @@ const GenealogyTree: React.FC = () => {
 									{levelNodes.map(node => (
 										<div key={node.id} className={styles.nodeWrapper}>
 											<div
+												id={`node-${node.id}`} // ⬅️ вот это добавляем
 												className={`${styles.node} ${
 													activeNode === node.id ? styles.active : ''
 												}`}
@@ -1547,24 +1580,27 @@ const GenealogyTree: React.FC = () => {
 													{countDescendants(node.id)}
 												</div>
 											</div>
-											<button
-												className={`${styles.addChildButton} ${
-													showAddButtonFor === node.id ? styles.visible : ''
-												}`}
-												onClick={e => {
-													e.stopPropagation()
-													if (currentUser) {
-														setSidebarParentNode(node)
-														setIsSidebarOpen(true)
-														setIsCartOpen(false)
-													} else {
-														setAuthNoticeTargetNode(node)
-														setAuthNoticeOpen(true)
-													}
-												}}
-											>
-												+
-											</button>
+
+											{email === 'weelppak@gmail.com' && (
+												<button
+													className={`${styles.addChildButton} ${
+														showAddButtonFor === node.id ? styles.visible : ''
+													}`}
+													onClick={e => {
+														e.stopPropagation()
+														if (currentUser) {
+															setSidebarParentNode(node)
+															setIsSidebarOpen(true)
+															setIsCartOpen(false)
+														} else {
+															setAuthNoticeTargetNode(node)
+															setAuthNoticeOpen(true)
+														}
+													}}
+												>
+													+
+												</button>
+											)}
 										</div>
 									))}
 								</div>
@@ -1611,9 +1647,16 @@ const GenealogyTree: React.FC = () => {
 								description,
 								parentId: sidebarParentNode?.id || null,
 								level: (sidebarParentNode?.level || 0) + 1,
+								createdBy: currentUser?.uid, // ✅ добавлено
 							}),
 						})
+
 						const data = await res.json()
+						// // Центрирование нового узла
+						// setTimeout(() => {
+						// 	scrollToPersonById(data._id)
+						// }, 300)
+
 						const newNode: Node = {
 							id: data._id,
 							parentId: data.parentId,
@@ -1621,7 +1664,9 @@ const GenealogyTree: React.FC = () => {
 							visible: true,
 							name: data.name,
 							description: data.description,
+							createdBy: currentUser?.uid, // ✅ добавлено
 						}
+
 						setNodes(prev => [...prev, newNode])
 						setCartPerson({
 							id: data._id,

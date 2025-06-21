@@ -7,7 +7,12 @@ import GenealogyTree from '../widget/GenealogyTree/GenealogyTree';
 import About from '../pages/about/About';
 // import ButtonWidget from '../widget/buttonWidget/ButtonWidget'
 function App() {
-    return (_jsxs("div", { style: { display: 'flex', minHeight: '100vh', flexDirection: 'column' }, children: [_jsx(HeaderWidget, {}), _jsx(ParticlesBackground, {}), _jsxs(Routes, { children: [_jsx(Route, { path: '/about', element: _jsx(About, {}) }), _jsx(Route, { path: '/', element: _jsx(GenealogyTree, {}) }), _jsx(Route, { path: '/tree', element: _jsx(GenealogyTree, {}) })] }), _jsx("div", { style: {
+    return (_jsxs("div", { style: {
+            display: 'flex',
+            minHeight: '100vh',
+            flexDirection: 'column',
+            height: '100vh',
+        }, children: [_jsx(HeaderWidget, {}), _jsx(ParticlesBackground, {}), _jsxs(Routes, { children: [_jsx(Route, { path: '/about', element: _jsx(About, {}) }), _jsx(Route, { path: '/', element: _jsx(GenealogyTree, {}) }), _jsx(Route, { path: '/tree', element: _jsx(GenealogyTree, {}) })] }), _jsx("div", { style: {
                     position: 'fixed',
                     bottom: '20px',
                     right: '20px',

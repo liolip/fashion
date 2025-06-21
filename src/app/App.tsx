@@ -10,7 +10,12 @@ import About from '../pages/about/About'
 function App() {
 	return (
 		<div
-			style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}
+			style={{
+				display: 'flex',
+				minHeight: '100vh',
+				flexDirection: 'column',
+				height: '100vh',
+			}}
 		>
 			<HeaderWidget />
 			<ParticlesBackground />
@@ -29,12 +34,7 @@ function App() {
 					right: '20px',
 					zIndex: 1000,
 				}}
-			>
-				{/* <ButtonWidget
-					onInfoClick={() => console.log('Инфо нажато')}
-					onDeleteClick={() => console.log('Удалить нажато')}
-				/> */}
-			</div>
+			></div>
 		</div>
 	)
 }

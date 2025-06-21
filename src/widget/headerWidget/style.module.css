@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .header {
   width: 100%;
   padding: 10px 0;
@@ -58,6 +59,9 @@
   font-family: Raleway, sans-serif;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column; /* вертикально */
+  gap: 6px;
 }
 
 .searchLabel {
@@ -79,12 +83,46 @@
   box-sizing: border-box;
 }
 
+/* Иконка лупы */
 .searchIcon {
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+.searchButtonWrapper {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  z-index: 5;
+}
+
+.searchButton {
+  width: calc(100% + 30px);
+  max-width: 630px;
+  padding: 10px 0;
+  background-color: rgb(44, 48, 76);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.searchButton:hover {
+  background-color: #373c4e;
 }
 
 .filters {
