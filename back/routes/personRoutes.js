@@ -178,20 +178,43 @@ router.get('/', async (req, res) => {
 })
 
 // Поиск по имени (GET /people/search?name=...)
+
 router.get('/search', async (req, res) => {
 	try {
-		const nameQuery = req.query.name
+		let nameQuery = req.query.name
+
 		if (!nameQuery) {
 			return res.status(400).json({ message: 'Параметр name обязателен' })
 		}
-		const regex = new RegExp(nameQuery, 'i') // регистронезависимый поиск
+
+		nameQuery = nameQuery.trim().normalize('NFC') // обрезаем пробелы и нормализуем юникод
+
+		const regex = new RegExp(nameQuery, 'i')
 		const people = await Person.find({ name: regex }).limit(10)
+
+		console.log('Поиск по имени:', nameQuery, 'Найдено:', people.length)
+
 		res.status(200).json(people)
 	} catch (error) {
 		console.error('Ошибка поиска:', error)
 		res.status(500).json({ message: 'Ошибка сервера при поиске' })
 	}
 })
+
+// router.get('/search', async (req, res) => {
+// 	try {
+// 		const nameQuery = req.query.name
+// 		if (!nameQuery) {
+// 			return res.status(400).json({ message: 'Параметр name обязателен' })
+// 		}
+// 		const regex = new RegExp(nameQuery, 'i') // регистронезависимый поиск
+// 		const people = await Person.find({ name: regex }).limit(10)
+// 		res.status(200).json(people)
+// 	} catch (error) {
+// 		console.error('Ошибка поиска:', error)
+// 		res.status(500).json({ message: 'Ошибка сервера при поиске' })
+// 	}
+// })
 
 // Создать нового человека
 router.post('/', async (req, res) => {

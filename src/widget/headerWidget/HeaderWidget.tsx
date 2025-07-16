@@ -63,96 +63,17 @@ const HeaderWidget: React.FC = () => {
 	const handleLoginClick = () => {
 		setIsLoginOpen(true)
 	}
-	// const handleSearch = async () => {
-	// 	if (!searchValue.trim()) return
-
-	// 	try {
-	// 		const response = await fetch(
-	// 			`https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
-	// 				searchValue
-	// 			)}`
-	// 		)
-	// 		if (!response.ok) throw new Error('Ошибка сети')
-	// 		const data = await response.json()
-
-	// 		if (data.length > 0) {
-	// 			const person = data[0]
-	// 			setFoundPerson({
-	// 				id: person._id,
-	// 				name: person.name,
-	// 				description: person.description,
-	// 				imageUrl: person.imageUrl || '',
-	// 			})
-	// 			setIsSidebarOpen(true)
-
-	// 			// ⬇ Центрируем узел после рендера
-	// 			setTimeout(() => {
-	// 				scrollToPersonById(person._id)
-	// 			}, 300)
-	// 		} else {
-	// 			alert('Человек не найден')
-	// 			setFoundPerson(null)
-	// 			setIsSidebarOpen(false)
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('Ошибка при поиске:', error)
-	// 		alert('Ошибка при поиске, попробуйте позже')
-	// 	}
-	// }
-
-	// const handleSearch = async () => {
-	// 	if (!searchValue.trim()) return
-
-	// 	try {
-	// 		const response = await fetch(
-	// 			`https://your-backend-url/api/people/search?name=${encodeURIComponent(
-	// 				searchValue
-	// 			)}`
-	// 		)
-	// 		if (!response.ok) {
-	// 			throw new Error('Ошибка сети')
-	// 		}
-	// 		const data = await response.json()
-
-	// 		if (data.length > 0) {
-	// 			const person = data[0]
-	// 			setFoundPerson({
-	// 				id: person._id,
-	// 				name: person.name,
-	// 				description: person.description,
-	// 				imageUrl: person.imageUrl || '',
-	// 			})
-	// 			setIsSidebarOpen(true)
-	// 		} else {
-	// 			alert('Человек не найден')
-	// 			setFoundPerson(null)
-	// 			setIsSidebarOpen(false)
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('Ошибка при поиске:', error)
-	// 		alert('Ошибка при поиске, попробуйте позже')
-	// 	}
-	// }
-
 	const handleSearch = async () => {
-		const name = searchValue.trim()
-		if (!name) return
+		if (!searchValue.trim()) return
 
 		try {
-			const url = `https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
-				name
-			)}&t=${Date.now()}`
-			alert(`Отправляем запрос на:\n${url}`) // Показываем URL запроса
-
-			const response = await fetch(url)
-
-			if (!response.ok) {
-				alert(`Ошибка сети: ${response.status} ${response.statusText}`)
-				throw new Error('Ошибка сети')
-			}
-
+			const response = await fetch(
+				`https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
+					searchValue
+				)}`
+			)
+			if (!response.ok) throw new Error('Ошибка сети')
 			const data = await response.json()
-			alert('Ответ с сервера:\n' + JSON.stringify(data, null, 2)) // Показываем ответ сервера
 
 			if (data.length > 0) {
 				const person = data[0]
@@ -164,6 +85,7 @@ const HeaderWidget: React.FC = () => {
 				})
 				setIsSidebarOpen(true)
 
+				// ⬇ Центрируем узел после рендера
 				setTimeout(() => {
 					scrollToPersonById(person._id)
 				}, 300)
@@ -173,10 +95,54 @@ const HeaderWidget: React.FC = () => {
 				setIsSidebarOpen(false)
 			}
 		} catch (error) {
-			alert('Ошибка при поиске: ' + String(error))
 			console.error('Ошибка при поиске:', error)
+			alert('Ошибка при поиске, попробуйте позже')
 		}
 	}
+
+	// const handleSearch = async () => {
+	// 	const name = searchValue.trim()
+	// 	if (!name) return
+
+	// 	try {
+	// 		const url = `https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
+	// 			name
+	// 		)}&t=${Date.now()}`
+	// 		alert(`Отправляем запрос на:\n${url}`) // Показываем URL запроса
+
+	// 		const response = await fetch(url)
+
+	// 		if (!response.ok) {
+	// 			alert(`Ошибка сети: ${response.status} ${response.statusText}`)
+	// 			throw new Error('Ошибка сети')
+	// 		}
+
+	// 		const data = await response.json()
+	// 		alert('Ответ с сервера:\n' + JSON.stringify(data, null, 2)) // Показываем ответ сервера
+
+	// 		if (data.length > 0) {
+	// 			const person = data[0]
+	// 			setFoundPerson({
+	// 				id: person._id,
+	// 				name: person.name,
+	// 				description: person.description,
+	// 				imageUrl: person.imageUrl || '',
+	// 			})
+	// 			setIsSidebarOpen(true)
+
+	// 			setTimeout(() => {
+	// 				scrollToPersonById(person._id)
+	// 			}, 300)
+	// 		} else {
+	// 			alert('Человек не найден')
+	// 			setFoundPerson(null)
+	// 			setIsSidebarOpen(false)
+	// 		}
+	// 	} catch (error) {
+	// 		alert('Ошибка при поиске: ' + String(error))
+	// 		console.error('Ошибка при поиске:', error)
+	// 	}
+	// }
 
 	return (
 		<>
