@@ -6,22 +6,22 @@ import CartWidget from '../cartWidget/CartWidget';
 import LoginWidgetModal from '../../widget/loginWidgetModal/LoginWidgetModal';
 const translations = {
     RU: {
-        project: 'О проекте',
+        // project: 'О проекте',
         searchPlaceholder: 'Введите имя',
         login: 'Войти',
-        logoText: 'Санжыра',
+        // logoText: '',
     },
     EN: {
-        project: 'About',
+        // project: 'About',
         searchPlaceholder: 'Enter name',
         login: 'Login',
-        logoText: 'Sanjyra',
+        // logoText: 'Sanjyra',
     },
     KG: {
-        project: 'Жобонун тууралуу',
+        // project: 'Жобонун тууралуу',
         searchPlaceholder: 'Атыңызды жазыңыз',
         login: 'Кирүү',
-        logoText: 'Санжыра',
+        // logoText: 'Санжыра',
     },
 };
 const HeaderWidget = () => {
@@ -115,7 +115,7 @@ const HeaderWidget = () => {
     // 		alert('Ошибка при поиске, попробуйте позже')
     // 	}
     // }
-    return (_jsxs(_Fragment, { children: [_jsx("header", { className: styles.header, children: _jsxs("div", { className: styles.container, children: [_jsx(NavLink, { to: '/', children: _jsx("img", { className: styles.logo, src: '/logo.kg.svg', alt: 'logo' }) }), _jsxs("nav", { className: styles.nav, children: [_jsx(NavLink, { to: '/', className: ({ isActive }) => (isActive ? styles.active : ''), children: currentTexts.logoText }), _jsx(NavLink, { to: '/about', className: ({ isActive }) => (isActive ? styles.active : ''), children: currentTexts.project })] }), _jsxs("div", { className: styles.searchWrapper, children: [_jsxs("label", { className: styles.searchLabel, htmlFor: 'search-input', children: [_jsx("svg", { width: '20', height: '20', viewBox: '0 0 20 20', fill: 'none', xmlns: 'http://www.w3.org/2000/svg', className: styles.searchIcon, children: _jsx("path", { d: 'M19 19L14.65 14.65M16.2071 9.60355C16.2071 12.9017 13.4046 15.7042 10.1064 15.7042C6.80823 15.7042 4.00574 12.9017 4.00574 9.60355C4.00574 6.30534 6.80823 3.50285 10.1064 3.50285C13.4046 3.50285 16.2071 6.30534 16.2071 9.60355Z', stroke: '#666', strokeWidth: '1.5', strokeLinecap: 'round' }) }), _jsx("input", { id: 'search-input', type: 'search', placeholder: currentTexts.searchPlaceholder, value: searchValue, onChange: e => setSearchValue(e.target.value), className: styles.searchInput, autoComplete: 'off' })] }), _jsx("div", { className: styles.searchButtonWrapper, style: {
+    return (_jsxs(_Fragment, { children: [_jsx("header", { className: styles.header, children: _jsxs("div", { className: styles.container, children: [_jsx(NavLink, { to: '/', children: _jsx("img", { className: styles.logo, src: '/logo.kg.svg', alt: 'logo' }) }), _jsxs("nav", { className: styles.nav, children: [_jsx(NavLink, { to: '/', className: ({ isActive }) => (isActive ? styles.active : '') }), _jsx(NavLink, { to: '/about', className: ({ isActive }) => (isActive ? styles.active : '') })] }), _jsxs("div", { className: styles.searchWrapper, children: [_jsxs("label", { className: styles.searchLabel, htmlFor: 'search-input', children: [_jsx("svg", { width: '20', height: '20', viewBox: '0 0 20 20', fill: 'none', xmlns: 'http://www.w3.org/2000/svg', className: styles.searchIcon, children: _jsx("path", { d: 'M19 19L14.65 14.65M16.2071 9.60355C16.2071 12.9017 13.4046 15.7042 10.1064 15.7042C6.80823 15.7042 4.00574 12.9017 4.00574 9.60355C4.00574 6.30534 6.80823 3.50285 10.1064 3.50285C13.4046 3.50285 16.2071 6.30534 16.2071 9.60355Z', stroke: '#666', strokeWidth: '1.5', strokeLinecap: 'round' }) }), _jsx("input", { id: 'search-input', type: 'search', placeholder: currentTexts.searchPlaceholder, value: searchValue, onChange: e => setSearchValue(e.target.value), className: styles.searchInput, autoComplete: 'off' })] }), _jsx("div", { className: styles.searchButtonWrapper, style: {
                                         maxHeight: searchValue.trim() ? '40px' : '0',
                                         opacity: searchValue.trim() ? 1 : 0,
                                         pointerEvents: searchValue.trim() ? 'auto' : 'none',

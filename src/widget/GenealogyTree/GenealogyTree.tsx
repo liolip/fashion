@@ -1584,26 +1584,27 @@ const GenealogyTree: React.FC = () => {
 												</div>
 											</div>
 
-											{email === 'weelppak@gmail.com' && (
-												<button
-													className={`${styles.addChildButton} ${
-														showAddButtonFor === node.id ? styles.visible : ''
-													}`}
-													onClick={e => {
-														e.stopPropagation()
-														if (currentUser) {
-															setSidebarParentNode(node)
-															setIsSidebarOpen(true)
-															setIsCartOpen(false)
-														} else {
-															setAuthNoticeTargetNode(node)
-															setAuthNoticeOpen(true)
-														}
-													}}
-												>
-													+
-												</button>
-											)}
+											{email === 'ulukbeknurubaev@gmail.com' ||
+												(email === 'weelppak@gmail.com' && (
+													<button
+														className={`${styles.addChildButton} ${
+															showAddButtonFor === node.id ? styles.visible : ''
+														}`}
+														onClick={e => {
+															e.stopPropagation()
+															if (currentUser) {
+																setSidebarParentNode(node)
+																setIsSidebarOpen(true)
+																setIsCartOpen(false)
+															} else {
+																setAuthNoticeTargetNode(node)
+																setAuthNoticeOpen(true)
+															}
+														}}
+													>
+														+
+													</button>
+												))}
 										</div>
 									))}
 								</div>

@@ -93,7 +93,7 @@ const About: React.FC = () => {
 	return (
 		<div className={styles.aboutPage}>
 			<div className={styles.content}>
-				<h1>О проекте</h1>
+				{/* <h1>О проекте</h1> */}
 				<p>Добро пожаловать!</p>
 				<p>
 					Наш проект — уникальное место, где история встречается с

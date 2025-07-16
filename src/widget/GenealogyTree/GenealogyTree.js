@@ -1375,18 +1375,19 @@ const GenealogyTree = () => {
                                     }, children: "+" }) })) : (Object.entries(groupedNodes()).map(([level, levelNodes]) => (_jsx("div", { className: styles.level, children: levelNodes.map(node => (_jsxs("div", { className: styles.nodeWrapper, children: [_jsxs("div", { id: `node-${node.id}`, className: `${styles.node} ${activeNode === node.id ? styles.active : ''}`, "data-node-id": node.id, onClick: e => {
                                                 e.stopPropagation();
                                                 toggleVisibility(node.id);
-                                            }, children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id) })] }), email === 'weelppak@gmail.com' && (_jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
-                                                e.stopPropagation();
-                                                if (currentUser) {
-                                                    setSidebarParentNode(node);
-                                                    setIsSidebarOpen(true);
-                                                    setIsCartOpen(false);
-                                                }
-                                                else {
-                                                    setAuthNoticeTargetNode(node);
-                                                    setAuthNoticeOpen(true);
-                                                }
-                                            }, children: "+" }))] }, node.id))) }, level))))] }) }) }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
+                                            }, children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id) })] }), email === 'ulukbeknurubaev@gmail.com' ||
+                                            (email === 'weelppak@gmail.com' && (_jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
+                                                    e.stopPropagation();
+                                                    if (currentUser) {
+                                                        setSidebarParentNode(node);
+                                                        setIsSidebarOpen(true);
+                                                        setIsCartOpen(false);
+                                                    }
+                                                    else {
+                                                        setAuthNoticeTargetNode(node);
+                                                        setAuthNoticeOpen(true);
+                                                    }
+                                                }, children: "+" })))] }, node.id))) }, level))))] }) }) }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
                     setIsLoginModalOpen(false);
                     setLoginTargetNode(null);
                 }, onLoginSuccess: handleLoginSuccess }), _jsx(AuthNoticeWidget, { isOpen: authNoticeOpen, onClose: () => setAuthNoticeOpen(false), onLoginClick: () => {

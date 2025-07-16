@@ -13,22 +13,22 @@ interface PersonType {
 
 const translations = {
 	RU: {
-		project: 'О проекте',
+		// project: 'О проекте',
 		searchPlaceholder: 'Введите имя',
 		login: 'Войти',
-		logoText: 'Санжыра',
+		// logoText: '',
 	},
 	EN: {
-		project: 'About',
+		// project: 'About',
 		searchPlaceholder: 'Enter name',
 		login: 'Login',
-		logoText: 'Sanjyra',
+		// logoText: 'Sanjyra',
 	},
 	KG: {
-		project: 'Жобонун тууралуу',
+		// project: 'Жобонун тууралуу',
 		searchPlaceholder: 'Атыңызды жазыңыз',
 		login: 'Кирүү',
-		logoText: 'Санжыра',
+		// logoText: 'Санжыра',
 	},
 }
 
@@ -147,14 +147,14 @@ const HeaderWidget: React.FC = () => {
 							to='/'
 							className={({ isActive }) => (isActive ? styles.active : '')}
 						>
-							{currentTexts.logoText}
+							{/* {currentTexts.logoText} */}
 						</NavLink>
 
 						<NavLink
 							to='/about'
 							className={({ isActive }) => (isActive ? styles.active : '')}
 						>
-							{currentTexts.project}
+							{/* {currentTexts.project} */}
 						</NavLink>
 					</nav>
 					<div className={styles.searchWrapper}>
