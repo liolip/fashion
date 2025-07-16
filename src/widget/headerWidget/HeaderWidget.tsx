@@ -68,7 +68,7 @@ const HeaderWidget: React.FC = () => {
 
 		try {
 			const response = await fetch(
-				`http://localhost:5000/api/person/search?name=${encodeURIComponent(
+				`https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
 					searchValue
 				)}`
 			)

@@ -55,7 +55,7 @@ const HeaderWidget = () => {
         if (!searchValue.trim())
             return;
         try {
-            const response = await fetch(`http://localhost:5000/api/person/search?name=${encodeURIComponent(searchValue)}`);
+            const response = await fetch(`https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(searchValue)}`);
             if (!response.ok)
                 throw new Error('Ошибка сети');
             const data = await response.json();
