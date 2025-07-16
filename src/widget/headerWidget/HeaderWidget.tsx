@@ -63,42 +63,42 @@ const HeaderWidget: React.FC = () => {
 	const handleLoginClick = () => {
 		setIsLoginOpen(true)
 	}
-	const handleSearch = async () => {
-		if (!searchValue.trim()) return
+	// const handleSearch = async () => {
+	// 	if (!searchValue.trim()) return
 
-		try {
-			const response = await fetch(
-				`https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
-					searchValue
-				)}`
-			)
-			if (!response.ok) throw new Error('Ошибка сети')
-			const data = await response.json()
+	// 	try {
+	// 		const response = await fetch(
+	// 			`https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
+	// 				searchValue
+	// 			)}`
+	// 		)
+	// 		if (!response.ok) throw new Error('Ошибка сети')
+	// 		const data = await response.json()
 
-			if (data.length > 0) {
-				const person = data[0]
-				setFoundPerson({
-					id: person._id,
-					name: person.name,
-					description: person.description,
-					imageUrl: person.imageUrl || '',
-				})
-				setIsSidebarOpen(true)
+	// 		if (data.length > 0) {
+	// 			const person = data[0]
+	// 			setFoundPerson({
+	// 				id: person._id,
+	// 				name: person.name,
+	// 				description: person.description,
+	// 				imageUrl: person.imageUrl || '',
+	// 			})
+	// 			setIsSidebarOpen(true)
 
-				// ⬇ Центрируем узел после рендера
-				setTimeout(() => {
-					scrollToPersonById(person._id)
-				}, 300)
-			} else {
-				alert('Человек не найден')
-				setFoundPerson(null)
-				setIsSidebarOpen(false)
-			}
-		} catch (error) {
-			console.error('Ошибка при поиске:', error)
-			alert('Ошибка при поиске, попробуйте позже')
-		}
-	}
+	// 			// ⬇ Центрируем узел после рендера
+	// 			setTimeout(() => {
+	// 				scrollToPersonById(person._id)
+	// 			}, 300)
+	// 		} else {
+	// 			alert('Человек не найден')
+	// 			setFoundPerson(null)
+	// 			setIsSidebarOpen(false)
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Ошибка при поиске:', error)
+	// 		alert('Ошибка при поиске, попробуйте позже')
+	// 	}
+	// }
 
 	// const handleSearch = async () => {
 	// 	if (!searchValue.trim()) return
@@ -133,6 +133,47 @@ const HeaderWidget: React.FC = () => {
 	// 		alert('Ошибка при поиске, попробуйте позже')
 	// 	}
 	// }
+
+	const handleSearch = async () => {
+		const name = searchValue.trim()
+		if (!name) return
+
+		const encodedName = encodeURIComponent(name)
+
+		try {
+			const url = `https://fashion-mwc8.onrender.com/api/person/search?name=${encodedName}&t=${Date.now()}`
+			console.log('Ищем:', name)
+			console.log('URL:', url)
+
+			const response = await fetch(url)
+
+			if (!response.ok) throw new Error('Ошибка сети')
+
+			const data = await response.json()
+
+			if (data.length > 0) {
+				const person = data[0]
+				setFoundPerson({
+					id: person._id,
+					name: person.name,
+					description: person.description,
+					imageUrl: person.imageUrl || '',
+				})
+				setIsSidebarOpen(true)
+
+				setTimeout(() => {
+					scrollToPersonById(person._id)
+				}, 300)
+			} else {
+				alert('Человек не найден')
+				setFoundPerson(null)
+				setIsSidebarOpen(false)
+			}
+		} catch (error) {
+			console.error('Ошибка при поиске:', error)
+			alert('Ошибка при поиске: ' + error)
+		}
+	}
 
 	return (
 		<>
