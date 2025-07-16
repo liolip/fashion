@@ -1247,7 +1247,8 @@ const GenealogyTree = () => {
     useEffect(() => {
         const fetchPersons = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/person');
+                const response = await fetch('https://fashion-mwc8.onrender.com/api/person');
+                // const response = await fetch('http://localhost:5000/api/person')
                 if (!response.ok)
                     throw new Error('Ошибка при загрузке данных');
                 const data = await response.json();
@@ -1396,24 +1397,35 @@ const GenealogyTree = () => {
                     setSidebarParentNode(null);
                 }, onSubmit: async (name, description) => {
                     try {
-                        const res = await fetch('http://localhost:5000/api/person', {
+                        const body = {
+                            name,
+                            description,
+                            parentId: sidebarParentNode?.id || null,
+                            level: (sidebarParentNode?.level || 0) + 1,
+                            createdBy: currentUser?.uid,
+                        };
+                        console.log('Отправка узла:', body);
+                        // const res = await fetch('http://localhost:5000/api/person', {
+                        // 	method: 'POST',
+                        // 	headers: {
+                        // 		'Content-Type': 'application/json',
+                        // 	},
+                        // 	body: JSON.stringify(body),
+                        // })
+                        const res = await fetch('https://fashion-mwc8.onrender.com/api/person', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({
-                                name,
-                                description,
-                                parentId: sidebarParentNode?.id || null,
-                                level: (sidebarParentNode?.level || 0) + 1,
-                                createdBy: currentUser?.uid, // ✅ добавлено
-                            }),
+                            body: JSON.stringify(body),
                         });
+                        if (!res.ok) {
+                            const errText = await res.text();
+                            console.error('Ошибка при сохранении:', errText);
+                            alert('Ошибка при сохранении нового узла:\n' + errText);
+                            return;
+                        }
                         const data = await res.json();
-                        // // Центрирование нового узла
-                        // setTimeout(() => {
-                        // 	scrollToPersonById(data._id)
-                        // }, 300)
                         const newNode = {
                             id: data._id,
                             parentId: data.parentId,
@@ -1421,7 +1433,7 @@ const GenealogyTree = () => {
                             visible: true,
                             name: data.name,
                             description: data.description,
-                            createdBy: currentUser?.uid, // ✅ добавлено
+                            createdBy: currentUser?.uid,
                         };
                         setNodes(prev => [...prev, newNode]);
                         setCartPerson({
@@ -1434,6 +1446,7 @@ const GenealogyTree = () => {
                         setSidebarParentNode(null);
                     }
                     catch (err) {
+                        console.error('Ошибка:', err);
                         alert('Ошибка при сохранении нового узла');
                     }
                 } }), _jsx(CartWidget, { isOpen: isCartOpen, onClose: () => setIsCartOpen(false), person: cartPerson }), buttonWidgetVisible && buttonWidgetPosition && (_jsx("div", { style: {
@@ -1453,7 +1466,18 @@ const GenealogyTree = () => {
                     }, onDeleteClick: () => {
                         if (!activeNodeId)
                             return;
-                        fetch(`http://localhost:5000/api/person/${activeNodeId}`, {
+                        // fetch(`http://localhost:5000/api/person/${activeNodeId}`, {
+                        // 	method: 'DELETE',
+                        // }).then(() => {
+                        // 	setNodes(prev =>
+                        // 		prev.filter(
+                        // 			n => n.id !== activeNodeId && n.parentId !== activeNodeId
+                        // 		)
+                        // 	)
+                        // 	setIsCartOpen(false)
+                        // 	setButtonWidgetVisible(false)
+                        // })
+                        fetch(`https://fashion-mwc8.onrender.com/api/person/${activeNodeId}`, {
                             method: 'DELETE',
                         }).then(() => {
                             setNodes(prev => prev.filter(n => n.id !== activeNodeId && n.parentId !== activeNodeId));

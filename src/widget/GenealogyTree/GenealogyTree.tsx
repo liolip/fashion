@@ -1371,7 +1371,10 @@ const GenealogyTree: React.FC = () => {
 	useEffect(() => {
 		const fetchPersons = async () => {
 			try {
-				const response = await fetch('http://localhost:5000/api/person')
+				const response = await fetch(
+					'https://fashion-mwc8.onrender.com/api/person'
+				)
+				// const response = await fetch('http://localhost:5000/api/person')
 				if (!response.ok) throw new Error('Ошибка при загрузке данных')
 				const data = await response.json()
 
@@ -1637,25 +1640,43 @@ const GenealogyTree: React.FC = () => {
 				}}
 				onSubmit={async (name, description) => {
 					try {
-						const res = await fetch('http://localhost:5000/api/person', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({
-								name,
-								description,
-								parentId: sidebarParentNode?.id || null,
-								level: (sidebarParentNode?.level || 0) + 1,
-								createdBy: currentUser?.uid, // ✅ добавлено
-							}),
-						})
+						const body = {
+							name,
+							description,
+							parentId: sidebarParentNode?.id || null,
+							level: (sidebarParentNode?.level || 0) + 1,
+							createdBy: currentUser?.uid,
+						}
+
+						console.log('Отправка узла:', body)
+
+						// const res = await fetch('http://localhost:5000/api/person', {
+						// 	method: 'POST',
+						// 	headers: {
+						// 		'Content-Type': 'application/json',
+						// 	},
+						// 	body: JSON.stringify(body),
+						// })
+
+						const res = await fetch(
+							'https://fashion-mwc8.onrender.com/api/person',
+							{
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(body),
+							}
+						)
+
+						if (!res.ok) {
+							const errText = await res.text()
+							console.error('Ошибка при сохранении:', errText)
+							alert('Ошибка при сохранении нового узла:\n' + errText)
+							return
+						}
 
 						const data = await res.json()
-						// // Центрирование нового узла
-						// setTimeout(() => {
-						// 	scrollToPersonById(data._id)
-						// }, 300)
 
 						const newNode: Node = {
 							id: data._id,
@@ -1664,7 +1685,7 @@ const GenealogyTree: React.FC = () => {
 							visible: true,
 							name: data.name,
 							description: data.description,
-							createdBy: currentUser?.uid, // ✅ добавлено
+							createdBy: currentUser?.uid,
 						}
 
 						setNodes(prev => [...prev, newNode])
@@ -1677,6 +1698,7 @@ const GenealogyTree: React.FC = () => {
 						setIsSidebarOpen(false)
 						setSidebarParentNode(null)
 					} catch (err) {
+						console.error('Ошибка:', err)
 						alert('Ошибка при сохранении нового узла')
 					}
 				}}
@@ -1710,9 +1732,24 @@ const GenealogyTree: React.FC = () => {
 						}}
 						onDeleteClick={() => {
 							if (!activeNodeId) return
-							fetch(`http://localhost:5000/api/person/${activeNodeId}`, {
-								method: 'DELETE',
-							}).then(() => {
+							// fetch(`http://localhost:5000/api/person/${activeNodeId}`, {
+							// 	method: 'DELETE',
+							// }).then(() => {
+							// 	setNodes(prev =>
+							// 		prev.filter(
+							// 			n => n.id !== activeNodeId && n.parentId !== activeNodeId
+							// 		)
+							// 	)
+							// 	setIsCartOpen(false)
+							// 	setButtonWidgetVisible(false)
+							// })
+
+							fetch(
+								`https://fashion-mwc8.onrender.com/api/person/${activeNodeId}`,
+								{
+									method: 'DELETE',
+								}
+							).then(() => {
 								setNodes(prev =>
 									prev.filter(
 										n => n.id !== activeNodeId && n.parentId !== activeNodeId

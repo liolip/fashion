@@ -39,3 +39,9 @@ app.post('/api/people', async (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`)
 })
+app.use(
+	cors({
+		origin: 'http://localhost:5173', // адрес вашего фронтенда
+		credentials: true, // если нужны куки/авторизация
+	})
+)
