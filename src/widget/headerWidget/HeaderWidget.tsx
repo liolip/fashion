@@ -138,18 +138,21 @@ const HeaderWidget: React.FC = () => {
 		const name = searchValue.trim()
 		if (!name) return
 
-		const encodedName = encodeURIComponent(name)
-
 		try {
-			const url = `https://fashion-mwc8.onrender.com/api/person/search?name=${encodedName}&t=${Date.now()}`
-			console.log('Ищем:', name)
-			console.log('URL:', url)
+			const url = `https://fashion-mwc8.onrender.com/api/person/search?name=${encodeURIComponent(
+				name
+			)}&t=${Date.now()}`
+			alert(`Отправляем запрос на:\n${url}`) // Показываем URL запроса
 
 			const response = await fetch(url)
 
-			if (!response.ok) throw new Error('Ошибка сети')
+			if (!response.ok) {
+				alert(`Ошибка сети: ${response.status} ${response.statusText}`)
+				throw new Error('Ошибка сети')
+			}
 
 			const data = await response.json()
+			alert('Ответ с сервера:\n' + JSON.stringify(data, null, 2)) // Показываем ответ сервера
 
 			if (data.length > 0) {
 				const person = data[0]
@@ -170,8 +173,8 @@ const HeaderWidget: React.FC = () => {
 				setIsSidebarOpen(false)
 			}
 		} catch (error) {
+			alert('Ошибка при поиске: ' + String(error))
 			console.error('Ошибка при поиске:', error)
-			alert('Ошибка при поиске: ' + error)
 		}
 	}
 
