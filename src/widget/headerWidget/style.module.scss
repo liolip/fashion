@@ -246,38 +246,44 @@
 // 	cursor: pointer;
 // }
 @media (max-width: 768px) {
+	.container {
+		padding: 10px 16px;
+		gap: 15px;
+	}
+
 	.searchWrapper {
-		width: 100%;
-		padding: 0 10px;
+		width: 250px;
 	}
 
 	.searchInput {
-		font-size: 18px;
-		padding: 14px 16px 14px 40px;
+		font-size: 16px;
+		padding: 10px 14px 10px 36px;
+		width: 100%;
+		border-radius: 12px;
 	}
 
 	.searchButton {
-		font-size: 18px;
-		padding: 12px 0;
-		width: 100%;
+		display: none;
 	}
 
-	.container {
-		flex-direction: column;
-		align-items: stretch;
-		height: auto;
-		padding: 10px;
-		gap: 10px;
+	.logo {
+		width: 35px;
+		height: 35px;
 	}
 
 	.buttons {
-		justify-content: space-between;
-		margin-left: 0;
+		gap: 8px;
 	}
 
 	.langBtn,
 	.loginBtn {
-		font-size: 16px;
-		padding: 6px 14px;
+		font-size: 14px;
+		padding: 6px 10px;
+	}
+}
+
+@media (max-width: 400px) {
+	.searchWrapper {
+		width: 90%;
 	}
 }
