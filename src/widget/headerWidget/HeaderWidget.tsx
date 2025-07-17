@@ -198,20 +198,14 @@ const HeaderWidget: React.FC = () => {
 							/>
 						</label>
 
-						<div className={styles.searchWrapper}>
-							<label className={styles.searchLabel} htmlFor='search-input'>
-								<span className={styles.searchIcon}>🔍</span>
-								<input
-									id='search-input'
-									type='search'
-									placeholder={currentTexts.searchPlaceholder}
-									value={searchValue}
-									onChange={e => setSearchValue(e.target.value)}
-									onKeyDown={e => e.key === 'Enter' && handleSearch()}
-									className={styles.searchInput}
-									autoComplete='off'
-								/>
-							</label>
+						<div
+							className={styles.searchButtonWrapper}
+							style={{
+								maxHeight: searchValue.trim() ? '40px' : '0',
+								opacity: searchValue.trim() ? 1 : 0,
+								pointerEvents: searchValue.trim() ? 'auto' : 'none',
+							}}
+						>
 							<button
 								type='button'
 								className={styles.searchButton}
