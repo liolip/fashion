@@ -194,4 +194,40 @@
 }
 .loginBtn:hover {
   background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px 16px;
+    gap: 15px;
+  }
+  .searchWrapper {
+    width: 250px;
+  }
+  .searchInput {
+    font-size: 16px;
+    padding: 10px 14px 10px 36px;
+    width: 100%;
+    border-radius: 12px;
+  }
+  .searchButton {
+    display: none;
+  }
+  .logo {
+    width: 35px;
+    height: 35px;
+  }
+  .buttons {
+    gap: 8px;
+  }
+  .langBtn,
+  .loginBtn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+@media (max-width: 400px) {
+  .searchWrapper {
+    width: 90%;
+  }
 }/*# sourceMappingURL=style.module.css.map */

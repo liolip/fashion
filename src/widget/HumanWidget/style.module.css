@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .sidebar {
   position: fixed;
   top: 0;
@@ -25,6 +26,7 @@
   height: 100%;
   overflow-y: auto;
   color: #000;
+  box-sizing: border-box;
 }
 
 .closeButton {
@@ -112,15 +114,69 @@
   background-color: #ffb700;
 }
 
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* Адаптивность */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100vw; /* теперь весь экран по ширине */
+    height: 100vh; /* весь экран по высоте */
+  }
+  .sidebarContent {
+    padding: 15px;
+    height: 100vh; /* чтобы контент занимал всю высоту */
+  }
+  .sidebarTitle {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+  .sidebarInfoBox p {
+    font-size: 13px;
+  }
+  .input,
+  .textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+  .textareaWrapper {
+    max-width: 100%;
+  }
+  .submitButton {
+    padding: 12px 0;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+  .closeButton {
+    width: 30px;
+    height: 30px;
+    font-size: 1.3rem;
+    padding: 4px;
+    top: 8px;
+    right: 8px;
+  }
+}
+@media (max-width: 400px) {
+  .sidebar {
+    width: 100vw; /* весь экран */
+    height: 100vh; /* весь экран */
+  }
+  .sidebarContent {
+    padding: 10px;
+    height: 100vh; /* высота на весь экран */
+  }
+  .sidebarTitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .submitButton {
+    padding: 10px 0;
+    font-size: 0.9rem;
+  }
+  .closeButton {
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+    padding: 3px;
+    top: 11px;
+    right: 6px;
+  }
 }/*# sourceMappingURL=style.module.css.map */
