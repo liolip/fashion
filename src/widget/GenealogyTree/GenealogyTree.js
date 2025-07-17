@@ -468,16 +468,38 @@ const GenealogyTree = () => {
     const [authNoticeOpen, setAuthNoticeOpen] = useState(false);
     const [authNoticeTargetNode, setAuthNoticeTargetNode] = useState(null);
     const scrollToNodeById = (id) => {
-        const el = document.getElementById(`node-${id}`);
-        if (el) {
-            el.scrollIntoView({
+        const container = containerRef.current;
+        const element = document.getElementById(`node-${id}`);
+        if (container && element) {
+            const containerRect = container.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+            const scrollLeft = container.scrollLeft;
+            const scrollTop = container.scrollTop;
+            const offsetX = elementRect.left - containerRect.left;
+            const offsetY = elementRect.top - containerRect.top;
+            const centerX = offsetX + elementRect.width / 2;
+            const centerY = offsetY + elementRect.height / 2;
+            let newScrollLeft = scrollLeft + centerX - container.clientWidth / 2;
+            let newScrollTop = scrollTop + centerY - container.clientHeight / 2;
+            // Ограничиваем newScrollLeft
+            if (newScrollLeft < 0)
+                newScrollLeft = 0;
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+            if (newScrollLeft > maxScrollLeft)
+                newScrollLeft = maxScrollLeft;
+            // Ограничиваем newScrollTop
+            if (newScrollTop < 0)
+                newScrollTop = 0;
+            const maxScrollTop = container.scrollHeight - container.clientHeight;
+            if (newScrollTop > maxScrollTop)
+                newScrollTop = maxScrollTop;
+            container.scrollTo({
+                left: newScrollLeft,
+                top: newScrollTop,
                 behavior: 'smooth',
-                block: 'center',
-                inline: 'center',
             });
-            // Плавная подсветка
-            el.classList.add(styles.highlight);
-            setTimeout(() => el.classList.remove(styles.highlight), 1500);
+            element.classList.add(styles.highlight);
+            setTimeout(() => element.classList.remove(styles.highlight), 1500);
         }
     };
     const [cartPerson, setCartPerson] = useState(null);
