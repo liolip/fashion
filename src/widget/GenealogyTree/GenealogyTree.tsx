@@ -44,6 +44,8 @@ const GenealogyTree: React.FC = () => {
 	const [authNoticeTargetNode, setAuthNoticeTargetNode] = useState<Node | null>(
 		null
 	)
+	const allowedEmails = ['weelppak@gmail.com', 'ulukbeknurubaev@gmail.com']
+
 	const scrollToNodeById = (id: string) => {
 		const el = document.getElementById(`node-${id}`)
 		if (el) {
@@ -251,7 +253,7 @@ const GenealogyTree: React.FC = () => {
 							))}
 						</svg>
 
-						{email === 'weelppak@gmail.com' && nodes.length === 0 ? (
+						{allowedEmails.includes(email || '') && nodes.length === 0 ? (
 							<div className={styles.emptyTree}>
 								<button
 									className={styles.addRootButton}
@@ -295,27 +297,26 @@ const GenealogyTree: React.FC = () => {
 												</div>
 											</div>
 
-											{email === 'ulukbeknurubaev@gmail.com' ||
-												(email === 'weelppak@gmail.com' && (
-													<button
-														className={`${styles.addChildButton} ${
-															showAddButtonFor === node.id ? styles.visible : ''
-														}`}
-														onClick={e => {
-															e.stopPropagation()
-															if (currentUser) {
-																setSidebarParentNode(node)
-																setIsSidebarOpen(true)
-																setIsCartOpen(false)
-															} else {
-																setAuthNoticeTargetNode(node)
-																setAuthNoticeOpen(true)
-															}
-														}}
-													>
-														+
-													</button>
-												))}
+											{allowedEmails.includes(email || '') && (
+												<button
+													className={`${styles.addChildButton} ${
+														showAddButtonFor === node.id ? styles.visible : ''
+													}`}
+													onClick={e => {
+														e.stopPropagation()
+														if (currentUser) {
+															setSidebarParentNode(node)
+															setIsSidebarOpen(true)
+															setIsCartOpen(false)
+														} else {
+															setAuthNoticeTargetNode(node)
+															setAuthNoticeOpen(true)
+														}
+													}}
+												>
+													+
+												</button>
+											)}
 										</div>
 									))}
 								</div>
@@ -431,47 +432,37 @@ const GenealogyTree: React.FC = () => {
 						zIndex: 1000,
 					}}
 				>
-					<ButtonWidget
-						onInfoClick={() => {
-							const node = nodes.find(n => n.id === activeNodeId)
-							if (node)
-								setCartPerson({
-									id: node.id,
-									name: node.name,
-									description: node.description || '',
-								})
-							setIsCartOpen(true)
-						}}
-						onDeleteClick={() => {
-							if (!activeNodeId) return
-							// fetch(`http://localhost:5000/api/person/${activeNodeId}`, {
-							// 	method: 'DELETE',
-							// }).then(() => {
-							// 	setNodes(prev =>
-							// 		prev.filter(
-							// 			n => n.id !== activeNodeId && n.parentId !== activeNodeId
-							// 		)
-							// 	)
-							// 	setIsCartOpen(false)
-							// 	setButtonWidgetVisible(false)
-							// })
-
-							fetch(
-								`https://fashion-mwc8.onrender.com/api/person/${activeNodeId}`,
-								{
-									method: 'DELETE',
-								}
-							).then(() => {
-								setNodes(prev =>
-									prev.filter(
-										n => n.id !== activeNodeId && n.parentId !== activeNodeId
+					{allowedEmails.includes(email || '') && (
+						<ButtonWidget
+							onInfoClick={() => {
+								const node = nodes.find(n => n.id === activeNodeId)
+								if (node)
+									setCartPerson({
+										id: node.id,
+										name: node.name,
+										description: node.description || '',
+									})
+								setIsCartOpen(true)
+							}}
+							onDeleteClick={() => {
+								if (!activeNodeId) return
+								fetch(
+									`https://fashion-mwc8.onrender.com/api/person/${activeNodeId}`,
+									{
+										method: 'DELETE',
+									}
+								).then(() => {
+									setNodes(prev =>
+										prev.filter(
+											n => n.id !== activeNodeId && n.parentId !== activeNodeId
+										)
 									)
-								)
-								setIsCartOpen(false)
-								setButtonWidgetVisible(false)
-							})
-						}}
-					/>
+									setIsCartOpen(false)
+									setButtonWidgetVisible(false)
+								})
+							}}
+						/>
+					)}
 				</div>
 			)}
 		</>

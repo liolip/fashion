@@ -23,6 +23,7 @@ const GenealogyTree = () => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [authNoticeOpen, setAuthNoticeOpen] = useState(false);
     const [authNoticeTargetNode, setAuthNoticeTargetNode] = useState(null);
+    const allowedEmails = ['weelppak@gmail.com', 'ulukbeknurubaev@gmail.com'];
     const scrollToNodeById = (id) => {
         const el = document.getElementById(`node-${id}`);
         if (el) {
@@ -162,7 +163,7 @@ const GenealogyTree = () => {
         }
     };
     const countDescendants = (id) => nodes.filter(n => n.parentId === id && n.visible).length;
-    return (_jsxs(_Fragment, { children: [_jsx(TransformWrapper, { initialScale: 1, minScale: 0.5, maxScale: 2, wheel: { step: 0.1 }, doubleClick: { disabled: true }, panning: { disabled: false }, limitToBounds: false, onZoom: ({ state }) => setScale(state.scale), children: _jsx(TransformComponent, { wrapperStyle: { width: '100%' }, children: _jsxs("div", { className: styles.treeContainer, ref: containerRef, onClick: onBackgroundClick, children: [_jsx("svg", { className: styles.linesSvg, children: lines.map((line, idx) => (_jsx(motion.path, { d: `M ${line.x1} ${line.y1} C ${(line.x1 + line.x2) / 2} ${line.y1}, ${(line.x1 + line.x2) / 2} ${line.y2}, ${line.x2} ${line.y2}`, fill: 'transparent', stroke: '#333', strokeWidth: '7', strokeLinecap: 'round', initial: { pathLength: 0 }, animate: { pathLength: 1 }, transition: { duration: 0.4 } }, idx))) }), email === 'weelppak@gmail.com' && nodes.length === 0 ? (_jsx("div", { className: styles.emptyTree, children: _jsx("button", { className: styles.addRootButton, onClick: () => {
+    return (_jsxs(_Fragment, { children: [_jsx(TransformWrapper, { initialScale: 1, minScale: 0.5, maxScale: 2, wheel: { step: 0.1 }, doubleClick: { disabled: true }, panning: { disabled: false }, limitToBounds: false, onZoom: ({ state }) => setScale(state.scale), children: _jsx(TransformComponent, { wrapperStyle: { width: '100%' }, children: _jsxs("div", { className: styles.treeContainer, ref: containerRef, onClick: onBackgroundClick, children: [_jsx("svg", { className: styles.linesSvg, children: lines.map((line, idx) => (_jsx(motion.path, { d: `M ${line.x1} ${line.y1} C ${(line.x1 + line.x2) / 2} ${line.y1}, ${(line.x1 + line.x2) / 2} ${line.y2}, ${line.x2} ${line.y2}`, fill: 'transparent', stroke: '#333', strokeWidth: '7', strokeLinecap: 'round', initial: { pathLength: 0 }, animate: { pathLength: 1 }, transition: { duration: 0.4 } }, idx))) }), allowedEmails.includes(email || '') && nodes.length === 0 ? (_jsx("div", { className: styles.emptyTree, children: _jsx("button", { className: styles.addRootButton, onClick: () => {
                                         if (currentUser) {
                                             setSidebarParentNode(null);
                                             setIsSidebarOpen(true);
@@ -173,19 +174,18 @@ const GenealogyTree = () => {
                                     }, children: "+" }) })) : (Object.entries(groupedNodes()).map(([level, levelNodes]) => (_jsx("div", { className: styles.level, children: levelNodes.map(node => (_jsxs("div", { className: styles.nodeWrapper, children: [_jsxs("div", { id: `node-${node.id}`, className: `${styles.node} ${activeNode === node.id ? styles.active : ''}`, "data-node-id": node.id, onClick: e => {
                                                 e.stopPropagation();
                                                 toggleVisibility(node.id);
-                                            }, children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id) })] }), email === 'ulukbeknurubaev@gmail.com' ||
-                                            (email === 'weelppak@gmail.com' && (_jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
-                                                    e.stopPropagation();
-                                                    if (currentUser) {
-                                                        setSidebarParentNode(node);
-                                                        setIsSidebarOpen(true);
-                                                        setIsCartOpen(false);
-                                                    }
-                                                    else {
-                                                        setAuthNoticeTargetNode(node);
-                                                        setAuthNoticeOpen(true);
-                                                    }
-                                                }, children: "+" })))] }, node.id))) }, level))))] }) }) }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
+                                            }, children: [_jsx("div", { className: styles.imageWrapper, children: _jsx("img", { src: 'https://gen.kg/media/requests/solnce.svg', alt: 'avatar' }) }), _jsx("div", { className: styles.content, children: node.name }), _jsx("div", { className: styles.childrenCount, children: countDescendants(node.id) })] }), allowedEmails.includes(email || '') && (_jsx("button", { className: `${styles.addChildButton} ${showAddButtonFor === node.id ? styles.visible : ''}`, onClick: e => {
+                                                e.stopPropagation();
+                                                if (currentUser) {
+                                                    setSidebarParentNode(node);
+                                                    setIsSidebarOpen(true);
+                                                    setIsCartOpen(false);
+                                                }
+                                                else {
+                                                    setAuthNoticeTargetNode(node);
+                                                    setAuthNoticeOpen(true);
+                                                }
+                                            }, children: "+" }))] }, node.id))) }, level))))] }) }) }), _jsx(LoginWidgetModal, { isOpen: isLoginModalOpen, onClose: () => {
                     setIsLoginModalOpen(false);
                     setLoginTargetNode(null);
                 }, onLoginSuccess: handleLoginSuccess }), _jsx(AuthNoticeWidget, { isOpen: authNoticeOpen, onClose: () => setAuthNoticeOpen(false), onLoginClick: () => {
@@ -253,7 +253,7 @@ const GenealogyTree = () => {
                     left: buttonWidgetPosition.x,
                     top: buttonWidgetPosition.y,
                     zIndex: 1000,
-                }, children: _jsx(ButtonWidget, { onInfoClick: () => {
+                }, children: allowedEmails.includes(email || '') && (_jsx(ButtonWidget, { onInfoClick: () => {
                         const node = nodes.find(n => n.id === activeNodeId);
                         if (node)
                             setCartPerson({
@@ -265,17 +265,6 @@ const GenealogyTree = () => {
                     }, onDeleteClick: () => {
                         if (!activeNodeId)
                             return;
-                        // fetch(`http://localhost:5000/api/person/${activeNodeId}`, {
-                        // 	method: 'DELETE',
-                        // }).then(() => {
-                        // 	setNodes(prev =>
-                        // 		prev.filter(
-                        // 			n => n.id !== activeNodeId && n.parentId !== activeNodeId
-                        // 		)
-                        // 	)
-                        // 	setIsCartOpen(false)
-                        // 	setButtonWidgetVisible(false)
-                        // })
                         fetch(`https://fashion-mwc8.onrender.com/api/person/${activeNodeId}`, {
                             method: 'DELETE',
                         }).then(() => {
@@ -283,6 +272,6 @@ const GenealogyTree = () => {
                             setIsCartOpen(false);
                             setButtonWidgetVisible(false);
                         });
-                    } }) }))] }));
+                    } })) }))] }));
 };
 export default GenealogyTree;
